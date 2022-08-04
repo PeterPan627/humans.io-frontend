@@ -1,0 +1,51 @@
+import SEO from "@components/seo";
+import Wrapper from "@layout/wrapper";
+import Header from "@layout/header";
+import Footer from "@layout/footer";
+import Breadcrumb from "@components/breadcrumb";
+import CollectionArea from "@containers/collection";
+
+// demo data
+const collectionsData = [
+    {
+        id: 1,
+        title: "Cubic Trad",
+        slug: "/marketplace",
+        total_item: 27,
+        image: {
+            src: "/images/collection/collection-lg-01.jpg",
+        },
+        thumbnails: [
+            {
+                src: "/images/collection/collection-sm-01.jpg",
+            },
+            {
+                src: "/images/collection/collection-sm-02.jpg",
+            },
+            {
+                src: "/images/collection/collection-sm-03.jpg",
+            },
+        ],
+        profile_image: {
+            src: "/images/client/client-15.png",
+        },
+    },
+];
+
+export async function getStaticProps() {
+    return { props: { className: "template-color-1" } };
+}
+
+const Collection = () => (
+    <Wrapper>
+        <SEO pageTitle="Collections" />
+        <Header />
+        <main id="main-content">
+            <Breadcrumb pageTitle="Our Collections" currentPage="Collections" />
+            <CollectionArea data={{ collections: collectionsData }} />
+        </main>
+        <Footer />
+    </Wrapper>
+);
+
+export default Collection;

@@ -13,24 +13,6 @@ import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 
-const menuData = [
-    {
-        id: 1,
-        text: "Home",
-        path: "/",
-    },
-    {
-        id: 2,
-        text: "Mint",
-        path: "/",
-    },
-    {
-        id: 2,
-        text: "Create",
-        path: "/",
-    },
-];
-
 const headerData = {
     id: "header-data-1",
     logo: [
@@ -43,12 +25,35 @@ const headerData = {
     ],
     activity_link: "/activity",
 };
+
+const menuData = [
+    {
+        id: 1,
+        text: "Home",
+        path: "/",
+    },
+    {
+        id: 2,
+        text: "About",
+        path: "/",
+    },
+    {
+        id: 3,
+        text: "Explore",
+        path: "/colections",
+    },
+    {
+        id: 4,
+        text: "Mint",
+        path: "/random-mint",
+    },
+];
+
 const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
     const { connect, disconnect, connectedWallet } = useWalletManager();
-    // const isAuthenticated = false;
 
     const handleClickConnectWalletButton = () => {
         if (connectedWallet) {

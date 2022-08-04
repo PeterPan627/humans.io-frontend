@@ -1,15 +1,7 @@
 import PropTypes from "prop-types";
 import { ItemType } from "@utils/types";
 
-// Demo data
-
-const Footer = ({ space, className, data }) => (
-    <>
-        <span>{space}</span>
-        <span>{className}</span>
-        <span>{data}</span>
-    </>
-);
+const Footer = ({ space, className, data }) => <>This is Footer</>;
 
 Footer.propTypes = {
     space: PropTypes.oneOf([1, 2, 3]),
