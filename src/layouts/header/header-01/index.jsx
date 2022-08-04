@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
+import { useWalletManager } from "@noahsaso/cosmodal";
 import Logo from "@components/logo";
 import MainMenu from "@components/menu/main-menu";
 import MobileMenu from "@components/menu/mobile-menu";
 import SearchForm from "@components/search-form/layout-01";
 import FlyoutSearchForm from "@components/search-form/layout-02";
-import UserDropdown from "@components/user-dropdown";
+// import UserDropdown from "@components/user-dropdown";
 import ColorSwitcher from "@components/color-switcher";
 import BurgerButton from "@ui/burger-button";
 import Anchor from "@ui/anchor";
@@ -20,8 +21,13 @@ const menuData = [
     },
     {
         id: 2,
-        text: "About",
-        path: "/about",
+        text: "Mint",
+        path: "/",
+    },
+    {
+        id: 2,
+        text: "Create",
+        path: "/",
     },
 ];
 
@@ -41,7 +47,16 @@ const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
-    const isAuthenticated = false;
+    const { connect, disconnect, connectedWallet } = useWalletManager();
+    // const isAuthenticated = false;
+
+    const handleClickConnectWalletButton = () => {
+        if (connectedWallet) {
+            disconnect();
+        } else {
+            connect();
+        }
+    };
 
     return (
         <>
@@ -81,25 +96,24 @@ const Header = ({ className }) => {
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
                             </div>
-                            {!isAuthenticated && (
-                                <div className="setting-option header-btn">
-                                    <div className="icon-box">
-                                        <Button
-                                            color="primary-alta"
-                                            className="connectBtn"
-                                            size="small"
-                                            onClick={() => {}}
-                                        >
-                                            Wallet connect
-                                        </Button>
-                                    </div>
+                            <div className="setting-option header-btn">
+                                <div className="icon-box">
+                                    <Button
+                                        color="primary-alta"
+                                        className="connectBtn"
+                                        size="small"
+                                        onClick={handleClickConnectWalletButton}
+                                    >
+                                        {connectedWallet?.name ||
+                                            "Wallet connect"}
+                                    </Button>
                                 </div>
-                            )}
-                            {isAuthenticated && (
+                            </div>
+                            {/* {isAuthenticated && (
                                 <div className="setting-option rn-icon-list user-account">
                                     <UserDropdown />
                                 </div>
-                            )}
+                            )} */}
                             <div className="setting-option rn-icon-list notification-badge">
                                 <div className="icon-box">
                                     <Anchor path={headerData.activity_link}>

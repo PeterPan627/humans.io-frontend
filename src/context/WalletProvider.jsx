@@ -1,8 +1,21 @@
 import PropTypes from "prop-types";
-import { WalletManagerProvider } from "@noahsaso/cosmodal";
+import { WalletManagerProvider, WalletType } from "@noahsaso/cosmodal";
+import { ChainConfig } from "@constant";
 
 const WalletProvider = ({ children }) => (
-    <WalletManagerProvider>{children}</WalletManagerProvider>
+    <WalletManagerProvider
+        defaultChainId={ChainConfig.chainId}
+        enabledWalletTypes={[WalletType.Keplr, WalletType.WalletConnectKeplr]}
+        localStorageKey="keplr-wallet"
+        walletConnectClientMeta={{
+            name: "Humans.io",
+            description: "Humans.io",
+            url: "",
+            icons: [],
+        }}
+    >
+        {children}
+    </WalletManagerProvider>
 );
 
 WalletProvider.propTypes = {

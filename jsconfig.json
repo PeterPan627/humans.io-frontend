@@ -10,7 +10,8 @@
             "@layout/*": ["src/layouts/*"],
             "@utils/*": ["src/utils/*"],
             "@hooks": ["src/hooks"],
-            "@context": ["src/context"]
+            "@context": ["src/context"],
+            "@constant": ["src/constant"]
         }
     }
 }

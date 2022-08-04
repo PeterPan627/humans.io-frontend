@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import sal from "sal.js";
 import { ThemeProvider } from "next-themes";
+import { WalletProvider } from "@context";
+
 import "../assets/css/bootstrap.min.css";
 import "../assets/css/feather.css";
 import "../assets/css/modal-video.css";
@@ -22,9 +24,11 @@ const MyApp = ({ Component, pageProps }) => {
         document.body.className = `${pageProps.className}`;
     });
     return (
-        <ThemeProvider defaultTheme="dark">
-            <Component {...pageProps} />
-        </ThemeProvider>
+        <WalletProvider>
+            <ThemeProvider defaultTheme="dark">
+                <Component {...pageProps} />
+            </ThemeProvider>
+        </WalletProvider>
     );
 };
 
