@@ -11,7 +11,7 @@ import { setBalance } from "@app/balanceSlice";
 // Demo Data
 const NFT_ADDRESSES = [
     "human1466nf3zuxpya8q9emxukd7vftaf6h4psr0a07srl5zw74zh84yjqtnljx7",
-    // "human1sr06m8yqg0wzqqyqvzvp5t07dj4nevx9u8qc7j4qa72qu8e3ct8qsjjkp3",
+    "human1sr06m8yqg0wzqqyqvzvp5t07dj4nevx9u8qc7j4qa72qu8e3ct8qsjjkp3",
 ];
 
 const MAX_ITEMS = 50;
