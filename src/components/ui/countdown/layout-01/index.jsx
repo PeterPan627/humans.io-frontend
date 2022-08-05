@@ -1,9 +1,9 @@
 import Countdown, { zeroPad } from "react-countdown";
 import PropTypes from "prop-types";
 
-const CountdownTimer = ({ date }) => {
+const CountdownTimer = ({ date, completedString }) => {
     const renderer = ({ days, hours, minutes, seconds, completed }) => {
-        if (completed) return <div>Completed</div>;
+        if (completed) return <div>{completedString}</div>;
         return (
             <div className="countdown">
                 <div className="countdown-container days">
@@ -30,6 +30,11 @@ const CountdownTimer = ({ date }) => {
 
 CountdownTimer.propTypes = {
     date: PropTypes.string.isRequired,
+    completedString: PropTypes.string,
+};
+
+CountdownTimer.defaultProps = {
+    completedString: "Completed",
 };
 
 export default CountdownTimer;

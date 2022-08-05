@@ -1,17 +1,20 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { useWalletManager } from "@noahsaso/cosmodal";
+// import { useWalletManager } from "@noahsaso/cosmodal";
 import Logo from "@components/logo";
 import MainMenu from "@components/menu/main-menu";
 import MobileMenu from "@components/menu/mobile-menu";
 import SearchForm from "@components/search-form/layout-01";
 import FlyoutSearchForm from "@components/search-form/layout-02";
-// import UserDropdown from "@components/user-dropdown";
+import UserDropdown from "@components/user-dropdown";
 import ColorSwitcher from "@components/color-switcher";
 import BurgerButton from "@ui/burger-button";
 import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
+// import { checkKeplr } from "src/context/WalletProvider";
+import { CustomWalletContext } from "@context";
 
 const headerData = {
     id: "header-data-1",
@@ -40,7 +43,7 @@ const menuData = [
     {
         id: 3,
         text: "Explore",
-        path: "/colections",
+        path: "/collections",
     },
     {
         id: 4,
@@ -53,15 +56,17 @@ const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
-    const { connect, disconnect, connectedWallet } = useWalletManager();
+    // const { connect, disconnect, connectedWallet } = useWalletManager();
+    const { connectedWallet, connect } = useContext(CustomWalletContext);
 
-    const handleClickConnectWalletButton = () => {
-        if (connectedWallet) {
-            disconnect();
-        } else {
-            connect();
-        }
-    };
+    // const handleClickConnectWalletButton = async () => {
+    //     if (connectedWallet) {
+    //         disconnect();
+    //     } else {
+    //         await checkKeplr();
+    //         connect();
+    //     }
+    // };
 
     return (
         <>
@@ -101,24 +106,28 @@ const Header = ({ className }) => {
                                 </div>
                                 <FlyoutSearchForm isOpen={search} />
                             </div>
-                            <div className="setting-option header-btn">
-                                <div className="icon-box">
-                                    <Button
-                                        color="primary-alta"
-                                        className="connectBtn"
-                                        size="small"
-                                        onClick={handleClickConnectWalletButton}
-                                    >
-                                        {connectedWallet?.name ||
-                                            "Wallet connect"}
-                                    </Button>
+                            {!connectedWallet && (
+                                <div className="setting-option header-btn">
+                                    <div className="icon-box">
+                                        <Button
+                                            color="primary-alta"
+                                            className="connectBtn"
+                                            size="small"
+                                            // onClick={
+                                            //     handleClickConnectWalletButton
+                                            // }
+                                            onClick={connect}
+                                        >
+                                            Wallet connect
+                                        </Button>
+                                    </div>
                                 </div>
-                            </div>
-                            {/* {isAuthenticated && (
-                                <div className="setting-option rn-icon-list user-account">
+                            )}
+                            {connectedWallet && (
+                                <div className="setting-option header-btn rn-icon-list user-account">
                                     <UserDropdown />
                                 </div>
-                            )} */}
+                            )}
                             <div className="setting-option rn-icon-list notification-badge">
                                 <div className="icon-box">
                                     <Anchor path={headerData.activity_link}>

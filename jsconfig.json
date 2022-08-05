@@ -9,6 +9,7 @@
             "@containers/*": ["src/containers/*"],
             "@layout/*": ["src/layouts/*"],
             "@utils/*": ["src/utils/*"],
+            "@app/*": ["src/app/*"],
             "@hooks": ["src/hooks"],
             "@context": ["src/context"],
             "@constant": ["src/constant"]

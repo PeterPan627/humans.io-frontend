@@ -2,11 +2,11 @@ import { useReducer, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import SectionTitle from "@components/section-title";
-import Product from "@components/product/layout-01";
 import ProductFilter from "@components/product-filter";
+import NftItem from "@components/nft-item";
 import FilterButton from "@ui/filter-button";
 import { slideToggle } from "@utils/methods";
-import { SectionTitleType, ProductType } from "@utils/types";
+import { SectionTitleType, NftType } from "@utils/types";
 
 function reducer(state, action) {
     switch (action.type) {
@@ -22,7 +22,7 @@ function reducer(state, action) {
 }
 
 const ExploreProductArea = ({ className, space, data }) => {
-    const itemsToFilter = [...data.products];
+    // const itemsToFilter = [...data.products];
     const [state, dispatch] = useReducer(reducer, {
         filterToggle: false,
         products: data.products || [],
@@ -53,44 +53,50 @@ const ExploreProductArea = ({ className, space, data }) => {
         dispatch({ type: "SET_PRODUCTS", payload: sortedProducts });
     };
 
-    const filterMethods = (item, filterKey, value) => {
-        if (value === "all") return false;
-        let itemKey = filterKey;
-        if (filterKey === "category") {
-            itemKey = "categories";
-        }
-        if (filterKey === "price") {
-            return (
-                item[itemKey].amount <= value[0] / 100 ||
-                item[itemKey].amount >= value[1] / 100
-            );
-        }
-        if (Array.isArray(item[itemKey])) {
-            return !item[itemKey].includes(value);
-        }
-        if (filterKey === "collection") {
-            return item[itemKey].name !== value;
-        }
-        return item[itemKey] !== value;
-    };
-
-    const itemFilterHandler = useCallback(() => {
-        let filteredItems = [];
-
-        filteredItems = itemsToFilter.filter((item) => {
-            // eslint-disable-next-line no-restricted-syntax
-            for (const key in state.inputs) {
-                if (filterMethods(item, key, state.inputs[key])) return false;
-            }
-            return true;
-        });
-        dispatch({ type: "SET_PRODUCTS", payload: filteredItems });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [state.inputs]);
-
+    // !must removed in the future;
     useEffect(() => {
-        itemFilterHandler();
-    }, [itemFilterHandler]);
+        dispatch({ type: "SET_PRODUCTS", payload: data.products });
+    }, [data.products]);
+
+    // const filterMethods = (item, filterKey, value) => {
+    //     if (value === "all") return false;
+    //     let itemKey = filterKey;
+    //     if (filterKey === "category") {
+    //         itemKey = "categories";
+    //     }
+    //     if (filterKey === "price") {
+    //         return (
+    //             item[itemKey].amount <= value[0] / 100 ||
+    //             item[itemKey].amount >= value[1] / 100
+    //         );
+    //     }
+    //     if (Array.isArray(item[itemKey])) {
+    //         return !item[itemKey].includes(value);
+    //     }
+    //     if (filterKey === "collection") {
+    //         return item[itemKey].name !== value;
+    //     }
+    //     return item[itemKey] !== value;
+    // };
+
+    // const itemFilterHandler = useCallback(() => {
+    //     let filteredItems = [];
+
+    //     filteredItems = itemsToFilter.filter((item) => {
+    //         // eslint-disable-next-line no-restricted-syntax
+    //         for (const key in state.inputs) {
+    //             if (filterMethods(item, key, state.inputs[key])) return false;
+    //         }
+    //         return true;
+    //     });
+    //     dispatch({ type: "SET_PRODUCTS", payload: filteredItems });
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [state.inputs]);
+
+    // useEffect(() => {
+    //     itemFilterHandler();
+    // }, [itemFilterHandler]);
+
     return (
         <div
             className={clsx(
@@ -132,18 +138,10 @@ const ExploreProductArea = ({ className, space, data }) => {
                                     key={prod.id}
                                     className="col-5 col-lg-4 col-md-6 col-sm-6 col-12"
                                 >
-                                    <Product
+                                    <NftItem
                                         overlay
-                                        placeBid={!!data.placeBid}
-                                        title={prod.title}
-                                        slug={prod.slug}
-                                        latestBid={prod.latestBid}
-                                        price={prod.price}
-                                        likeCount={prod.likeCount}
                                         auction_date={prod.auction_date}
-                                        image={prod.images?.[0]}
-                                        authors={prod.authors}
-                                        bitCount={prod.bitCount}
+                                        item={prod.nft}
                                     />
                                 </div>
                             ))}
@@ -162,7 +160,12 @@ ExploreProductArea.propTypes = {
     space: PropTypes.oneOf([1, 2]),
     data: PropTypes.shape({
         section_title: SectionTitleType,
-        products: PropTypes.arrayOf(ProductType),
+        products: PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
+            nft: PropTypes.arrayOf(NftType),
+            auction_date: PropTypes.string,
+        }),
         placeBid: PropTypes.bool,
     }),
 };
