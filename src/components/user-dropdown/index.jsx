@@ -3,10 +3,12 @@ import { useWalletManager } from "@noahsaso/cosmodal";
 import Anchor from "@ui/anchor";
 import { useContext } from "react";
 import { CustomWalletContext } from "@context";
+import { useAppSelector } from "@app/hooks";
 
 const UserDropdown = () => {
     // const { disconnect, connectedWallet } = useWalletManager();
     const { connectedWallet, disconnect } = useContext(CustomWalletContext);
+    const balance = useAppSelector((state) => state.balance);
     return (
         <div className="icon-box">
             {/* <Anchor path="/author">
@@ -39,7 +41,7 @@ const UserDropdown = () => {
                     <ul className="product-list">
                         <li className="single-product-list">
                             <div className="thumbnail">
-                                <Anchor path="/product">
+                                {/* <Anchor path="/product">
                                     <Image
                                         src="/images/portfolio/portfolio-07.jpg"
                                         alt="Nft Product Images"
@@ -47,17 +49,29 @@ const UserDropdown = () => {
                                         width={50}
                                         height={50}
                                     />
-                                </Anchor>
+                                </Anchor> */}
+                                <Image
+                                    src="/images/portfolio/portfolio-07.jpg"
+                                    alt="Nft Product Images"
+                                    layout="fixed"
+                                    width={50}
+                                    height={50}
+                                />
                             </div>
                             <div className="content">
                                 <h6 className="title">
-                                    <Anchor path="/product">Balance</Anchor>
+                                    {/* <Anchor path="/product">Balance</Anchor> */}
+                                    Balance
                                 </h6>
-                                <span className="price">25 ETH</span>
+                                <span className="price">
+                                    {`${balance.amount || ""} ${
+                                        balance.denom || ""
+                                    }`}
+                                </span>
                             </div>
                             <div className="button" />
                         </li>
-                        <li className="single-product-list">
+                        {/* <li className="single-product-list">
                             <div className="thumbnail">
                                 <Anchor path="/product">
                                     <Image
@@ -76,7 +90,7 @@ const UserDropdown = () => {
                                 <span className="price">25 ETH</span>
                             </div>
                             <div className="button" />
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
                 {/* <div className="add-fund-button mt--20 pb--20">

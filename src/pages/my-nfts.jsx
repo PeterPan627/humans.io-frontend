@@ -22,6 +22,7 @@ const MyNfts = () => {
     const { connectedWallet } = useContext(CustomWalletContext);
     const router = useRouter();
     const collections = useAppSelector((state) => state.collections);
+    const marketplaceNfts = useAppSelector((state) => state.marketplaceNfts);
 
     useEffect(() => {
         if (!connectedWallet) {
@@ -51,6 +52,11 @@ const MyNfts = () => {
                     };
                     return newItem;
                 }) || [];
+            marketplaceNfts[key]?.forEach((item) => {
+                if (item.seller === connectedWallet.address) {
+                    nftList.push(item);
+                }
+            });
             setMyNfts((prev) => ({
                 ...prev,
                 [key]: nftList,
@@ -77,7 +83,7 @@ const MyNfts = () => {
             <SEO pageTitle="Marketplace" />
             <Header />
             <main id="main-content">
-                <Breadcrumb pageTitle="Marketplace" currentPage="Marketplace" />
+                <Breadcrumb pageTitle="My NFTs" currentPage="My NFTs" />
                 <ProductArea data={{ products: productData }} />
             </main>
             <Footer />

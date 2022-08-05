@@ -54,7 +54,7 @@ const ProductArea = ({ className, space, data }) => (
                                 eventKey="nav-all"
                                 className="lg-product_tab-pane"
                             >
-                                {shuffleArray(data?.products)?.map((prod) => (
+                                {data?.products?.map((prod) => (
                                     <MintItem
                                         key={prod.id}
                                         title={prod.title}
@@ -74,7 +74,7 @@ const ProductArea = ({ className, space, data }) => (
                                 eventKey="nav-live"
                                 className="lg-product_tab-pane"
                             >
-                                {shuffleArray(data?.products)?.map((prod) => (
+                                {data?.products?.map((prod) => (
                                     <MintItem
                                         key={prod.id}
                                         title={prod.title}

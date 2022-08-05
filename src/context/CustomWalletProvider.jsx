@@ -131,11 +131,11 @@ const CustomWalletProvider = ({ children }) => {
             const offlineSignerResult = await window.keplr.getOfflineSigner(
                 ChainConfig.chainId
             );
-            const keplrAccounts = await offlineSignerResult.getAccounts();
-            console.log('keplr accounts', keplrAccounts)
+            const { name: label, bech32Address: address } =
+                await window.keplr.getKey(ChainConfig.chainId);
             setConnectedWallet({
-                address: keplrAccounts[0].address,
-                name: keplrAccounts[0].label,
+                address,
+                name: label,
             });
             setOfflineSigner(offlineSignerResult);
             const client = await SigningCosmWasmClient.connectWithSigner(

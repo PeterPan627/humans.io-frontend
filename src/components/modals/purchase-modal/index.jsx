@@ -20,7 +20,11 @@ const PurchaseModal = ({
         setAmount(value);
     };
     const handleConfirm = async () => {
-        if (handleClickConfirm) handleClickConfirm(amount);
+        if (handleClickConfirm) {
+            handleClickConfirm(
+                amountOptions?.disabled ? amountOptions?.defaultAmount : amount
+            );
+        }
     };
 
     return (
