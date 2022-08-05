@@ -1,6 +1,7 @@
+import { ChainConfig } from "@constant";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = { denom: ChainConfig.microDenom, amount: 0 };
 
 export const balanceSlice = createSlice({
     name: "balance",
