@@ -1,7 +1,7 @@
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
-import Header from "@layout/header/header-01";
-import Footer from "@layout/footer/footer-01";
+import Header from "@layout/header";
+import Footer from "@layout/footer";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };

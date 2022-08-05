@@ -78,6 +78,38 @@ export const ProductType = PropTypes.shape({
     bitCount: PropTypes.number,
 });
 
+export const NftType = PropTypes.shape({
+    token_address: PropTypes.string.isRequired,
+    token_id: PropTypes.string.isRequired,
+    collection: PropTypes.string.isRequired,
+    image_url: PropTypes.string.isRequired,
+    token_url: PropTypes.string.isRequired,
+    seller: PropTypes.string,
+    price: PropTypes.shape({
+        denom: PropTypes.string.isRequired,
+        amount: PropTypes.number.isRequired,
+    }),
+    offering_id: PropTypes.number,
+});
+
+export const RandomMintData = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.shape({
+        public: PropTypes.shape({
+            amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
+            currency: PropTypes.string.isRequired,
+        }),
+        private: PropTypes.shape({
+            amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
+            currency: PropTypes.string.isRequired,
+        }),
+    }).isRequired,
+    image: ImageType,
+});
+
 export const SellerType = PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     name: PropTypes.string.isRequired,

@@ -5,6 +5,11 @@ module.exports = {
     sassOptions: {
         includePaths: [path.join(__dirname, "./src/assets/scss")],
     },
+    images: {
+        domains: ["secretsteampunks.mypinata.cloud"],
+        // loader: "imgix",
+        // path: "https://secretsteampunks.mypinata.cloud/",
+    },
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
         // eslint-disable-next-line no-param-reassign
         config.ignoreWarnings = [
