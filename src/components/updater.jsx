@@ -93,6 +93,7 @@ const Updater = () => {
     }, [dispatch, runQuery]);
 
     const fetchBalance = useCallback(async () => {
+        if (!signingClient) return;
         const balance = await signingClient.getBalance(
             connectedWallet.address,
             ChainConfig.microDenom
