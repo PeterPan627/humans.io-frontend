@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import clsx from "clsx";
-import { useWalletManager } from "@noahsaso/cosmodal";
+// import { useWalletManager } from "@noahsaso/cosmodal";
 // import Anchor from "@ui/anchor";
 // import ClientAvatar from "@ui/client-avatar";
 import Button from "@ui/button";
@@ -90,7 +90,7 @@ const MintItem = ({
             toast.success("Success!");
             setShowBidModal(false);
         } catch (e) {
-            console.error(e, contractAddress, amount);
+            // console.error(e, contractAddress, amount);
             toast.error(`Fail!`);
         }
     };

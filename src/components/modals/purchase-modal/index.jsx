@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
-import { useContract } from "@hooks";
-import { toast } from "react-toastify";
 
 const PurchaseModal = ({
     show,

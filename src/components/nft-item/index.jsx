@@ -2,7 +2,7 @@ import { useContext, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import clsx from "clsx";
-import { useWalletManager } from "@noahsaso/cosmodal";
+// import { useWalletManager } from "@noahsaso/cosmodal";
 import Anchor from "@ui/anchor";
 import CountdownTimer from "@ui/countdown/layout-01";
 // import ClientAvatar from "@ui/client-avatar";

@@ -80,15 +80,19 @@ const Updater = () => {
 
     const fetchCollectionInfo = useCallback(async () => {
         NFT_ADDRESSES.forEach(async (nftAddress) => {
-            const collectionInfo = await runQuery(nftAddress, {
-                get_collection_state: {},
-            });
-            dispatch(
-                setCollectionInfo([
-                    nftAddress,
-                    { ...collectionInfo, nftAddress },
-                ])
-            );
+            try {
+                const collectionInfo = await runQuery(nftAddress, {
+                    get_collection_state: {},
+                });
+                dispatch(
+                    setCollectionInfo([
+                        nftAddress,
+                        { ...collectionInfo, nftAddress },
+                    ])
+                );
+            } catch (e) {
+                // console.error(nftAddress, e)
+            }
         });
     }, [dispatch, runQuery]);
 

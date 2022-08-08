@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useWalletManager } from "@noahsaso/cosmodal";
+// import { useWalletManager } from "@noahsaso/cosmodal";
 import Anchor from "@ui/anchor";
 import { useContext } from "react";
 import { CustomWalletContext } from "@context";
