@@ -12,6 +12,7 @@ const PurchaseModal = ({
     handleClickConfirm,
 }) => {
     const [amount, setAmount] = useState();
+    const [isPendingTx, setIsPendingTx] = useState(false);
     const balance = useAppSelector((state) => state.balance);
 
     const handleChangeAmount = (e) => {
@@ -21,8 +22,12 @@ const PurchaseModal = ({
     };
     const handleConfirm = async () => {
         if (handleClickConfirm) {
+            setIsPendingTx(true);
             handleClickConfirm(
-                amountOptions?.disabled ? amountOptions?.defaultAmount : amount
+                amountOptions?.disabled ? amountOptions?.defaultAmount : amount,
+                () => {
+                    setIsPendingTx(false);
+                }
             );
         }
     };
@@ -88,7 +93,12 @@ const PurchaseModal = ({
                         </div>
                     </div>
                     <div className="bit-continue-button">
-                        <Button size="medium" fullwidth onClick={handleConfirm}>
+                        <Button
+                            size="medium"
+                            fullwidth
+                            onClick={handleConfirm}
+                            disabled={isPendingTx}
+                        >
                             {generalOptions.buttonString}
                         </Button>
                         <Button
@@ -96,6 +106,7 @@ const PurchaseModal = ({
                             size="medium"
                             className="mt--10"
                             onClick={handleModal}
+                            disabled={isPendingTx}
                         >
                             Cancel
                         </Button>

@@ -37,25 +37,34 @@ const NftItem = ({ overlay, auction_date, item }) => {
         setShowBidModal((prev) => !prev);
     };
 
-    const handleNft = async (amount) => {
+    const handleNft = async (amount, callback) => {
         if (!nftInfo.price) {
             try {
                 await sellNft(item, amount);
                 setShowBidModal(false);
                 // eslint-disable-next-line no-empty
-            } catch (e) {}
+            } catch (e) {
+            } finally {
+                callback();
+            }
         } else if (item.seller === connectedWallet.address) {
             try {
                 await withdrawNft(item);
                 setShowBidModal(false);
                 // eslint-disable-next-line no-empty
-            } catch (e) {}
+            } catch (e) {
+            } finally {
+                callback();
+            }
         } else {
             try {
                 await buyNft(item);
                 setShowBidModal(false);
                 // eslint-disable-next-line no-empty
-            } catch (e) {}
+            } catch (e) {
+            } finally {
+                callback();
+            }
         }
     };
 
