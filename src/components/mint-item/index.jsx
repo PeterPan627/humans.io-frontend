@@ -76,7 +76,7 @@ const MintItem = ({
         setShowBidModal(true);
     };
 
-    const handleMint = async (amount) => {
+    const handleMint = async (amount, callback) => {
         try {
             await runExecute(
                 contractAddress,
@@ -92,6 +92,8 @@ const MintItem = ({
         } catch (e) {
             // console.error(e, contractAddress, amount);
             toast.error(`Fail!`);
+        } finally {
+            callback();
         }
     };
 

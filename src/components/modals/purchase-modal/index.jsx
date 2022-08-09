@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Modal from "react-bootstrap/Modal";
 import Button from "@ui/button";
+import { useAppSelector } from "@app/hooks";
 
 const PurchaseModal = ({
     show,
@@ -11,6 +12,8 @@ const PurchaseModal = ({
     handleClickConfirm,
 }) => {
     const [amount, setAmount] = useState();
+    const [isPendingTx, setIsPendingTx] = useState(false);
+    const balance = useAppSelector((state) => state.balance);
 
     const handleChangeAmount = (e) => {
         if (amountOptions?.disabled) return;
@@ -19,8 +22,12 @@ const PurchaseModal = ({
     };
     const handleConfirm = async () => {
         if (handleClickConfirm) {
+            setIsPendingTx(true);
             handleClickConfirm(
-                amountOptions?.disabled ? amountOptions?.defaultAmount : amount
+                amountOptions?.disabled ? amountOptions?.defaultAmount : amount,
+                () => {
+                    setIsPendingTx(false);
+                }
             );
         }
     };
@@ -75,14 +82,23 @@ const PurchaseModal = ({
                                 <span>Total bid amount</span>
                             </div>
                             <div className="bid-content-right">
-                                <span>9578 wETH</span>
-                                <span>10 wETH</span>
-                                <span>9588 wETH</span>
+                                <span>
+                                    {`${balance.amount || ""} ${
+                                        balance.denom || ""
+                                    }`}
+                                </span>
+                                <span>10 uheart</span>
+                                <span />
                             </div>
                         </div>
                     </div>
                     <div className="bit-continue-button">
-                        <Button size="medium" fullwidth onClick={handleConfirm}>
+                        <Button
+                            size="medium"
+                            fullwidth
+                            onClick={handleConfirm}
+                            disabled={isPendingTx}
+                        >
                             {generalOptions.buttonString}
                         </Button>
                         <Button
@@ -90,6 +106,7 @@ const PurchaseModal = ({
                             size="medium"
                             className="mt--10"
                             onClick={handleModal}
+                            disabled={isPendingTx}
                         >
                             Cancel
                         </Button>
