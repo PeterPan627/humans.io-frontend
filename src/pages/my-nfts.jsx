@@ -1,6 +1,6 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-// import { useWalletManager } from "@noahsaso/cosmodal";
+import { useWalletManager } from "@noahsaso/cosmodal";
 import SEO from "@components/seo";
 import Wrapper from "@layout/wrapper";
 import Header from "@layout/header";
@@ -9,7 +9,7 @@ import Breadcrumb from "@components/breadcrumb";
 import ProductArea from "@containers/explore-product/layout-01";
 import { useContract } from "@hooks";
 import { useAppSelector } from "@app/hooks";
-import { CustomWalletContext } from "@context";
+// import { CustomWalletContext } from "@context";
 
 export async function getStaticProps() {
     return { props: { className: "template-color-1" } };
@@ -18,8 +18,8 @@ export async function getStaticProps() {
 const MyNfts = () => {
     const [myNfts, setMyNfts] = useState({});
     const { runQuery } = useContract();
-    // const { connectedWallet } = useWalletManager();
-    const { connectedWallet } = useContext(CustomWalletContext);
+    const { connectedWallet } = useWalletManager();
+    // const { connectedWallet } = useContext(CustomWalletContext);
     const router = useRouter();
     const collections = useAppSelector((state) => state.collections);
     const marketplaceNfts = useAppSelector((state) => state.marketplaceNfts);

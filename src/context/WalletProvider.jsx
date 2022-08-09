@@ -109,6 +109,14 @@ const WalletProvider = ({ children }) => (
             url: "",
             icons: [],
         }}
+        chainInfoOverrides={[
+            {
+                rest: ChainConfig.restEndpoint,
+                rpc: ChainConfig.rpcEndpoint,
+                chainId: ChainConfig.chainId,
+                chainName: ChainConfig.chainName,
+            },
+        ]}
     >
         {children}
     </WalletManagerProvider>

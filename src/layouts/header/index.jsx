@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-// import { useWalletManager } from "@noahsaso/cosmodal";
+import { useWalletManager } from "@noahsaso/cosmodal";
 import Logo from "@components/logo";
 import MainMenu from "@components/menu/main-menu";
 import MobileMenu from "@components/menu/mobile-menu";
@@ -14,7 +13,7 @@ import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
 // import { checkKeplr } from "src/context/WalletProvider";
-import { CustomWalletContext } from "@context";
+// import { CustomWalletContext } from "@context";
 
 const headerData = {
     id: "header-data-1",
@@ -56,8 +55,8 @@ const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
-    // const { connect, disconnect, connectedWallet } = useWalletManager();
-    const { connectedWallet, connect } = useContext(CustomWalletContext);
+    const { connect, disconnect, connectedWallet } = useWalletManager();
+    // const { connectedWallet, connect } = useContext(CustomWalletContext);
 
     // const handleClickConnectWalletButton = async () => {
     //     if (connectedWallet) {

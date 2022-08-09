@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { useWalletManager } from "@noahsaso/cosmodal";
 import Anchor from "@ui/anchor";
-import { useContext } from "react";
-import { CustomWalletContext } from "@context";
+// import { CustomWalletContext } from "@context";
 import { useAppSelector } from "@app/hooks";
 
 const UserDropdown = () => {
-    // const { disconnect, connectedWallet } = useWalletManager();
-    const { connectedWallet, disconnect } = useContext(CustomWalletContext);
+    const { disconnect, connectedWallet } = useWalletManager();
+    // const { connectedWallet, disconnect } = useContext(CustomWalletContext);
     const balance = useAppSelector((state) => state.balance);
     return (
         <div className="icon-box">

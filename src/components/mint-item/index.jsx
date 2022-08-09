@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useContext } from "react";
+import { useEffect, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import clsx from "clsx";
@@ -13,7 +13,7 @@ import { ImageType } from "@utils/types";
 import { useContract } from "@hooks";
 import { ChainConfig } from "@constant";
 import { toast } from "react-toastify";
-import { CustomWalletContext } from "@context";
+// import { CustomWalletContext } from "@context";
 
 const MintItem = ({
     title,
@@ -30,8 +30,8 @@ const MintItem = ({
     const [showBidModal, setShowBidModal] = useState(false);
     const [stateInfo, setStateInfo] = useState({});
     const { runQuery, runExecute } = useContract();
-    // const { connectedWallet } = useWalletManager();
-    const { connectedWallet } = useContext(CustomWalletContext);
+    const { connectedWallet } = useWalletManager();
+    // const { connectedWallet } = useContext(CustomWalletContext);
 
     const fetchStateInfo = async () => {
         const stateInfoResult = await runQuery(contractAddress, {
@@ -90,7 +90,7 @@ const MintItem = ({
             toast.success("Success!");
             setShowBidModal(false);
         } catch (e) {
-            console.error(e, contractAddress, amount);
+            // console.error(e, contractAddress, amount);
             toast.error(`Fail!`);
         }
     };

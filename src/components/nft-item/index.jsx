@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import clsx from "clsx";
@@ -14,13 +14,13 @@ import Button from "@ui/button";
 import { NftType } from "@utils/types";
 import { ChainConfig } from "@constant";
 import { useContract } from "@hooks";
-import { CustomWalletContext } from "@context";
+// import { CustomWalletContext } from "@context";
 
 const NftItem = ({ overlay, auction_date, item }) => {
     const [showBidModal, setShowBidModal] = useState(false);
     const { sellNft, withdrawNft, buyNft } = useContract();
-    // const { connectedWallet } = useWalletManager();
-    const { connectedWallet } = useContext(CustomWalletContext);
+    const { connectedWallet } = useWalletManager();
+    // const { connectedWallet } = useContext(CustomWalletContext);
 
     const nftInfo = useMemo(() => {
         const { price } = item;

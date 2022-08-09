@@ -49,7 +49,7 @@ const Collection = () => {
         return {
             id: key,
             title: collection.collection_info?.title || "",
-            slug: "/marketplace",
+            slug: `/marketplace?nftAddress=${key}`,
             total_item: totalItem,
             image: {
                 src: collection.collection_info?.background_url || "",
