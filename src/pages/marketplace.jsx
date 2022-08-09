@@ -19,13 +19,19 @@ const Product = () => {
         (state) => state.marketplaceNfts[nftAddress]
     );
 
-    const productData = useMemo(() => {
-        if (!marketplaceNfts) return [];
-        return marketplaceNfts.map((nft) => ({
-            id: nft.token_id,
-            nft,
-        }));
-    }, [marketplaceNfts]);
+    const productData = useMemo(
+        () =>
+            // if (!marketplaceNfts) return [];
+            // return marketplaceNfts.map((nft) => ({
+            //     id: nft.token_id,
+            //     nft,
+            // }));
+            ({
+                id: nftAddress || "nft marketplace",
+                nft: marketplaceNfts || [],
+            }),
+        [marketplaceNfts, nftAddress]
+    );
 
     return (
         <Wrapper>
