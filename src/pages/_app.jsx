@@ -7,7 +7,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import {
     RefreshContextProvider,
-    CustomWalletProvider as WalletProvider,
+    // CustomWalletProvider as WalletProvider,
+    WalletProvider,
 } from "@context";
 import { persistor, store } from "@app/store";
 import Updater from "@components/updater";

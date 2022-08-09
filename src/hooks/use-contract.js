@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react";
+import { useCallback } from "react";
 import { toast } from "react-toastify";
 import btoa from "btoa";
 import { useWallet } from "@noahsaso/cosmodal";
@@ -11,7 +11,7 @@ import { coins } from "@cosmjs/proto-signing";
 import { ChainConfig, MarketplaceContract } from "@constant";
 import { toMicroAmount } from "@utils/coins";
 import { useAppSelector } from "@app/hooks";
-import { CustomWalletContext } from "@context";
+// import { CustomWalletContext } from "@context";
 
 const getQueryClient = async (config) => {
     const { rpcEndpoint } = config;
@@ -20,33 +20,38 @@ const getQueryClient = async (config) => {
 };
 
 function useContract() {
-    // const { offlineSigner, signingCosmWasmClient, address } = useWallet(
-    //     ChainConfig.chainId
-    // );
-    const { connectedWallet, offlineSigner, signingClient } =
-        useContext(CustomWalletContext);
+    const { offlineSigner, signingCosmWasmClient, address } = useWallet(
+        ChainConfig.chainId
+    );
+    // const { connectedWallet, offlineSigner, signingClient } =
+    //     useContext(CustomWalletContext);
     const collections = useAppSelector((state) => state.collections);
 
     const runQuery = useCallback(
         async (contractAddress, queryMsg) => {
-            if (signingClient) {
-                const result = await signingClient.queryContractSmart(
-                    contractAddress,
-                    queryMsg
-                );
-                return result;
+            try {
+                if (signingCosmWasmClient) {
+                    const result =
+                        await signingCosmWasmClient.queryContractSmart(
+                            contractAddress,
+                            queryMsg
+                        );
+                    return result;
+                }
+                const client = await getQueryClient(ChainConfig);
+                if (client) {
+                    const result = await client.queryContractSmart(
+                        contractAddress,
+                        queryMsg
+                    );
+                    return result;
+                }
+                return null;
+            } catch (e) {
+                return null;
             }
-            const client = await getQueryClient(ChainConfig);
-            if (client) {
-                const result = await client.queryContractSmart(
-                    contractAddress,
-                    queryMsg
-                );
-                return result;
-            }
-            return null;
         },
-        [signingClient]
+        [signingCosmWasmClient]
     );
 
     const runExecute = useCallback(
@@ -72,7 +77,8 @@ function useContract() {
                 ? toMicroAmount(executeFunds, ChainConfig.coinDecimals)
                 : undefined;
             return cwClient.execute(
-                connectedWallet.address,
+                // connectedWallet.address,
+                address,
                 contractAddress,
                 executeMsg,
                 "auto",
@@ -82,7 +88,7 @@ function useContract() {
                     : undefined
             );
         },
-        [connectedWallet, offlineSigner]
+        [address, offlineSigner]
     );
 
     const sellNft = useCallback(

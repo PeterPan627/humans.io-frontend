@@ -1,11 +1,12 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import { useWallet } from "@noahsaso/cosmodal";
 
 import { useRefresh, useContract } from "@hooks";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { setCollectionInfo } from "@app/collectionsSlice";
 import { ChainConfig, MarketplaceContract } from "@constant";
 import { setMarketplaceNfts } from "@app/marketplaceNftsSlice";
-import { CustomWalletContext } from "@context";
+// import { CustomWalletContext } from "@context";
 import { setBalance } from "@app/balanceSlice";
 
 // Demo Data
@@ -19,7 +20,8 @@ const MAX_ITEMS = 50;
 const Updater = () => {
     const { normal } = useRefresh();
     const { runQuery } = useContract();
-    const { connectedWallet, signingClient } = useContext(CustomWalletContext);
+    // const { connectedWallet, signingClient } = useContext(CustomWalletContext);
+    const { signingCosmWasmClient, address } = useWallet(ChainConfig.chainId);
     const dispatch = useAppDispatch();
     const collections = useAppSelector((state) => state.collections);
 
@@ -97,9 +99,10 @@ const Updater = () => {
     }, [dispatch, runQuery]);
 
     const fetchBalance = useCallback(async () => {
-        if (!signingClient) return;
-        const balance = await signingClient.getBalance(
-            connectedWallet.address,
+        if (!signingCosmWasmClient) return;
+        const balance = await signingCosmWasmClient.getBalance(
+            // connectedWallet.address,
+            address,
             ChainConfig.microDenom
         );
         dispatch(
@@ -110,7 +113,7 @@ const Updater = () => {
                     : Number(balance.amount) / 1e6,
             })
         );
-    }, [connectedWallet, dispatch, signingClient]);
+    }, [address, dispatch, signingCosmWasmClient]);
 
     useEffect(() => {
         fetchMarketplaceNfts();
