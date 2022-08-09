@@ -12,7 +12,7 @@ import BurgerButton from "@ui/burger-button";
 import Anchor from "@ui/anchor";
 import Button from "@ui/button";
 import { useOffcanvas, useSticky, useFlyoutSearch } from "@hooks";
-// import { checkKeplr } from "src/context/WalletProvider";
+import { checkKeplr } from "src/context/WalletProvider";
 // import { CustomWalletContext } from "@context";
 
 const headerData = {
@@ -55,7 +55,7 @@ const Header = ({ className }) => {
     const sticky = useSticky();
     const { offcanvas, offcanvasHandler } = useOffcanvas();
     const { search, searchHandler } = useFlyoutSearch();
-    const { connect, disconnect, connectedWallet } = useWalletManager();
+    const { connect, connectedWallet } = useWalletManager();
     // const { connectedWallet, connect } = useContext(CustomWalletContext);
 
     // const handleClickConnectWalletButton = async () => {
@@ -115,7 +115,10 @@ const Header = ({ className }) => {
                                             // onClick={
                                             //     handleClickConnectWalletButton
                                             // }
-                                            onClick={connect}
+                                            onClick={async () => {
+                                                connect();
+                                                await checkKeplr();
+                                            }}
                                         >
                                             Wallet connect
                                         </Button>
